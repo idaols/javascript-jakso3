@@ -48,6 +48,7 @@ const checkGuess = () => {
   if (userGuess === randomNumber) {
     lastResult.textContent = 'Congratulations! You got it right!';
     lastResult.style.backgroundColor = 'green';
+    lastResult.style.borderRadius = '3px';
     lowOrHi.textContent = '';
     setGameOver();
     endTimer();
@@ -61,6 +62,7 @@ const checkGuess = () => {
   } else {
     lastResult.textContent = 'Wrong!';
     lastResult.style.backgroundColor = 'red';
+    lastResult.style.borderRadius = '3px';
     if (userGuess < minValue || userGuess > maxValue) {
       lowOrHi.textContent = 'Number must be between ' + minValue + ' and ' + maxValue + "!";
     } else if (userGuess < randomNumber) {

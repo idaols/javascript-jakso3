@@ -1,3 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+  background-color: #17ADB4;
+  height: 100vh;
+
+
+}
+
 body {
-  margin: 10%;
+  margin: 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 600px;
+  height: 600px;
+  text-align: center;
+  background-color: #FFFFF6;
+  border-radius: 10%;
+  /* border: solid 4px #C8AF84; */
+  /* border-style: dotted; */
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  justify-content: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+h1 {
+  text-transform: uppercase;
+  color: #48D1CC;
+  text-shadow: 1px 1px rgba(100, 100, 111, 0.8);
+  font-size: 2em;
+}
+
+p {
+  padding: 5px;
+  font-size: 1em;
+}
+
+.guessField {
+  margin: 5px;
+  padding: 5px;
+}
+
+.guessSubmit {
+  margin: 5px;
+  padding: 10px;
+  background-color: #48D1CC;
+  color: #FFFFF6;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none !important;
+  border: 1px solid #48D1CC;
+  border-radius: 5px;
+}
+
+button {
+  position: absolute;
+  top: 72%;
+  padding: 10px;
+  background-color: #48D1CC;
+  color: #FFFFF6;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  cursor: pointer;
+}
+
+.guesses {
+  padding-top: 20px;
+}
+
+.lowOrHi {
+  padding-bottom: 20px;
+}
+
+.pelinTiedot {
+  margin: 10px;
+  color: #C8AF84;
 }
