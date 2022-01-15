@@ -1,16 +1,14 @@
-const coursesEn = ["Hamburger, cream sauce and poiled potates",
-  "Goan style fish curry and whole grain rice",
-  "Vegan Chili sin carne and whole grain rice",
-  "Broccoli puree soup, side salad with two napas",
-  "Lunch baguette with BBQ-turkey filling",
-  "Cheese / Chicken / Vege / Halloum burger and french fries"];
+import LunchMenu from '../sodexo-day-example.json';
+// Test
+console.log('lunch menu object', LunchMenu);
 
-const coursesFi = ["Jauhelihapihvi, ruskeaa kermakastiketta ja keitettyä perunaa",
-  "Goalaista kalacurrya ja täysjyväriisiä",
-  "vegaani Chili sin carne ja täysjyväriisi",
-  "Parsakeittoa,lisäkesalaatti kahdella napaksella",
-  "Lunch baguette with BBQ-turkey filling",
-  "Juusto / Kana / Kasvis / Halloumi burgeri ja ranskalaiset"];
+const coursesFi = [];
+const coursesEn = [];
+
+for (let i in LunchMenu.courses) {
+  coursesFi.push(LunchMenu.courses[i].title_fi);
+  coursesEn.push(LunchMenu.courses[i].title_en);
+};
 
 const menuList = document.querySelector(".menuList");
 const randomDish = document.querySelector(".randomDish");
@@ -21,8 +19,8 @@ const randomBtn = document.querySelector("#randomBtn");
 
 let langFi = true;
 
-coursesEn.sort();
 coursesFi.sort();
+coursesEn.sort();
 
 
 const showMenuFi = () => {
