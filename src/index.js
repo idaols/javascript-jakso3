@@ -1,21 +1,15 @@
-import LunchMenu from '../sodexo-day-example.json';
-// Test
-console.log('lunch menu object', LunchMenu);
+import sodexoData from './modules/sodexo-data';
 
-const coursesFi = [];
-const coursesEn = [];
-
-for (let i in LunchMenu.courses) {
-  coursesFi.push(LunchMenu.courses[i].title_fi);
-  coursesEn.push(LunchMenu.courses[i].title_en);
-};
+// for (let i in LunchMenu.courses) {
+//   coursesFi.push(LunchMenu.courses[i].title_fi);
+//   coursesEn.push(LunchMenu.courses[i].title_en);
+// };
 
 const menuList = document.querySelector(".menuList");
 const randomDish = document.querySelector(".randomDish");
 const languageBtn = document.querySelector("#languageBtn");
 const sortBtn = document.querySelector("#sortBtn");
 const randomBtn = document.querySelector("#randomBtn");
-
 
 let langFi = true;
 
@@ -25,9 +19,9 @@ coursesEn.sort();
 
 const showMenuFi = () => {
   menuList.innerHTML = ``;
-  for (let i = 0; i < coursesFi.length; i++) {
+  for (let i = 0; i < sodexoData.coursesFi.length; i++) {
     menuList.innerHTML += `
-      <li>${coursesFi[i]}</li>
+      <li>${sodexoData.coursesFi[i]}</li>
       `;
   };
 };
