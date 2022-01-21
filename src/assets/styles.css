@@ -17,6 +17,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: leipateksti;
 }
 
 :root {
@@ -147,7 +148,7 @@ p {
 }
 
 .intro p {
-  line-height: 23px;
+  line-height: 26px;
 }
 
 .menu-grid-container {
@@ -193,6 +194,7 @@ p {
 
 .card-header {
   display: flex;
+  align-items: center;
   padding-left: 20px;
 }
 
@@ -221,9 +223,14 @@ p {
   padding-left: 20px;
 }
 
-.menu-list li:nth-child(n+2) {
-  margin-top: 5px;
+.menu-list li {
+  font-size: 12px;
+  margin-top: 10px;
 }
+
+/* .menu-list li:nth-child(n+2) {
+  margin-top: 10px;
+} */
 
 .menucard h2 {
   font-family: ravintola;
@@ -239,6 +246,10 @@ p {
 .location-icon:hover {
   fill: var(--highlight-green);
   cursor: pointer;
+}
+
+.distance {
+  font-size: 14px;
 }
 
 /* .menucard:nth-child(n+3) {
