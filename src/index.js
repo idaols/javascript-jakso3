@@ -1,5 +1,7 @@
 // Week2 Task2
 
+import fazerLunchMenu from './assets/fazer-week-example.json';
+
 const menu =
   [
     { name: 'Lingonberry jam', price: 4.00 },
@@ -71,5 +73,36 @@ sortMenu();
 filterMenu();
 raisePrice();
 eatWholeMenu();
+
+// B
+
+const dietVegan = [];
+
+/**
+ * Extract vegan diets from Fazer menu JSON object
+ *
+ * @param {string} menu - JSON Menu to be parsed
+ */
+const parseFazerMenu = (menu) => {
+  const setMenus = menu.SetMenus;
+  for (const setMenu of setMenus) {
+    const meals = setMenu.Meals;
+    for (const meal of meals) {
+      const name = meal.Name;
+      const diets = meal.Diets;
+      for (const diet of diets) {
+        if (diet === 'Veg') {
+          dietVegan.push(name);
+        }
+      }
+    }
+  }
+
+};
+
+parseFazerMenu(fazerLunchMenu.LunchMenus[0]);
+console.log('Vegan dishes', dietVegan);
+
+
 
 
