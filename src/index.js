@@ -1,91 +1,114 @@
-import LunchMenu from '../sodexo-day-example.json';
-// Test
-console.log('lunch menu object', LunchMenu);
+import SodexoData from './modules/sodexo-data';
+import FazerData from './modules/fazer-data';
 
-const coursesFi = [];
-const coursesEn = [];
+const sodexoCoursesFi = SodexoData.coursesFi;
+const sodexoCoursesEn = SodexoData.coursesEn;
+const fazerCoursesFi = FazerData.coursesFi;
+const fazerCoursesEn = FazerData.coursesEn;
 
-for (let i in LunchMenu.courses) {
-  coursesFi.push(LunchMenu.courses[i].title_fi);
-  coursesEn.push(LunchMenu.courses[i].title_en);
-};
-
-const menuList = document.querySelector(".menuList");
-const randomDish = document.querySelector(".randomDish");
-const languageBtn = document.querySelector("#languageBtn");
-const sortBtn = document.querySelector("#sortBtn");
-const randomBtn = document.querySelector("#randomBtn");
-
-
-let langFi = true;
-
-coursesFi.sort();
-coursesEn.sort();
+const sodexoMenuList = document.querySelector("#menuListSodexo");
+const fazerMenuList = document.querySelector("#menuListFazer");
+const sodexoLanguageBtn = document.querySelector("#sodexoLanguageBtn");
+const sodexoSortBtn = document.querySelector("#sodexoSortBtn");
+const sodexoRandomBtn = document.querySelector("#sodexoRandomBtn");
+const fazerLanguageBtn = document.querySelector("#fazerLanguageBtn");
+const fazerSortBtn = document.querySelector("#fazerSortBtn");
+const fazerRandomBtn = document.querySelector("#fazerRandomBtn");
 
 
-const showMenuFi = () => {
+let sodexoLangFi = true;
+let fazerLangFi = true;
+
+const showMenu = (courses, menuList) => {
   menuList.innerHTML = ``;
-  for (let i = 0; i < coursesFi.length; i++) {
+  for (let i = 0; i < courses.length; i++) {
     menuList.innerHTML += `
-      <li>${coursesFi[i]}</li>
+      <li>${courses[i]}</li>
       `;
   };
 };
 
-showMenuFi();
+showMenu(sodexoCoursesFi, sodexoMenuList);
+showMenu(fazerCoursesFi, fazerMenuList);
 
-const showMenuEn = () => {
-  menuList.innerHTML = ``;
-  for (let i = 0; i < coursesEn.length; i++) {
-    menuList.innerHTML += `
-      <li>${coursesEn[i]}</li>
-      `;
-  };
-};
 
-const changeLanguage = () => {
-  randomDish.innerHTML = ``;
+const changeLanguage = (coursesFi, coursesEn, menuList, langFi) => {
   if (langFi) {
-    showMenuEn();
-    langFi = false;
+    showMenu(coursesEn, menuList);
   } else {
-    showMenuFi();
-    langFi = true;
+    showMenu(coursesFi, menuList);
   }
 };
 
-const sortMenu = () => {
-  randomDish.innerHTML = ``;
+const changeSodexoLanguage = () => {
+  changeLanguage(sodexoCoursesFi, sodexoCoursesEn, sodexoMenuList, sodexoLangFi);
+  if (sodexoLangFi) {
+    sodexoLangFi = false;
+  } else {
+    sodexoLangFi = true;
+  }
+};
+
+const changeFazerLanguage = () => {
+  changeLanguage(fazerCoursesFi, fazerCoursesEn, fazerMenuList, fazerLangFi);
+  if (fazerLangFi) {
+    fazerLangFi = false;
+  } else {
+    fazerLangFi = true;
+  }
+};
+
+const sortMenu = (coursesFi, coursesEn, menuList, langFi) => {
   if (langFi) {
     coursesFi.reverse();
-    showMenuFi();
+    showMenu(coursesFi, menuList);
   } else {
     coursesEn.reverse();
-    showMenuEn();
+    showMenu(coursesEn, menuList);
   };
 };
 
+const sortSodexoMenu = () => {
+  sortMenu(sodexoCoursesFi, sodexoCoursesEn, sodexoMenuList, sodexoLangFi);
+};
 
-const selectRandom = () => {
-  const picRandom = Math.floor(Math.random() * coursesFi.length);
-  if (langFi) {
-    randomDish.innerHTML = ``;
-    randomDish.innerHTML += `
-    <p class="rndmDish">Random dish: ${coursesFi[picRandom]}</p>`;
-  } else {
-    randomDish.innerHTML = ``;
-    randomDish.innerHTML += `
-    <p class="rndmDish">Random dish: ${coursesEn[picRandom]}</p>`;
-  }
+const sortFazerMenu = () => {
+  sortMenu(fazerCoursesFi, fazerCoursesEn, fazerMenuList, fazerLangFi);
 };
 
 
+const selectRandom = (courses) => {
+  const pickRandom = Math.floor(Math.random() * courses.length);
+  alert(courses[pickRandom]);
+};
+
+const selectSodexoRandom = () => {
+  if (sodexoLangFi) {
+    selectRandom(sodexoCoursesFi);
+  } else {
+    selectRandom(sodexoCoursesEn);
+  }
+
+};
+
+const selectFazerRandom = () => {
+  if (fazerLangFi) {
+    selectRandom(fazerCoursesFi);
+  } else {
+    selectRandom(fazerCoursesEn);
+  }
+
+};
 
 
+// Event listeners
 
-languageBtn.addEventListener('click', changeLanguage);
-sortBtn.addEventListener('click', sortMenu);
-randomBtn.addEventListener('click', selectRandom);
+sodexoLanguageBtn.addEventListener('click', changeSodexoLanguage);
+sodexoSortBtn.addEventListener('click', sortSodexoMenu);
+sodexoRandomBtn.addEventListener('click', selectSodexoRandom);
+fazerLanguageBtn.addEventListener('click', changeFazerLanguage);
+fazerSortBtn.addEventListener('click', sortFazerMenu);
+fazerRandomBtn.addEventListener('click', selectFazerRandom);
 
 
 
