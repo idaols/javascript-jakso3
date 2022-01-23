@@ -1,13 +1,84 @@
 /**TASK 2 */
 
+/**
+ * Algoritmi
+ *
+ * Arvaaminen aloitetaan min ja max arvojen puolivälistä. Tämän jälkeen arvattuun lukuun
+ * lisätään tai siitä vähennetään puolet joka kerta sen mukaan, onko arvaus liian
+ * korkea vai matala.
+ */
+
+const guessNumber = (min, max) => {
+  let guess = Math.round((max - min + 1) / 2) + min;
+  if (guessHistory.indexOf(guess) === -1) {
+    return guess;
+  } else {
+    return guess - 1;
+  }
+};
+
+const algorithm = () => {
+  if (lastGuessTooHigh === null) {
+    return guessNumber(guessMin, guessMax);
+  } else {
+    if (lastGuessTooHigh) {
+      guessMax = guessHistory.at(-1);
+      return guessNumber(guessMin, guessMax);
+    } else {
+      guessMin = guessHistory.at(-1);
+      return guessNumber(guessMin, guessMax);
+    }
+  }
+};
+
 const maxValue = 90;
 const minValue = 10;
-let randomNumber = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
-console.log(randomNumber);
+let guessHistory = [];
+let testAlgorithmCount = [];
+let lastGuessTooHigh = null;
+let guessMin = minValue;
+let guessMax = maxValue;
 
-// const randomNumber = (minValue, maxValue) => {
-//   return Math.floor(Math.random() * (maxValue - minValue + 1) + minValue); //The maximum is inclusive and the minimum is inclusive
-// };
+for (let i = 0; i < 1500; i++) {
+  let testRandomNumber = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
+  for (let i = 0; i < 1000; i++) {
+    let testGuessed = algorithm();
+    guessHistory.push(testGuessed);
+    if (testGuessed === testRandomNumber) {
+      break;
+    } else if (testGuessed > testRandomNumber) {
+      lastGuessTooHigh = true;
+    } else {
+      lastGuessTooHigh = false;
+    }
+  }
+  testAlgorithmCount.push(guessHistory.length);
+  guessHistory = [];
+  lastGuessTooHigh = null;
+  guessMin = minValue;
+  guessMax = maxValue;
+};
+
+
+let algorithmSum = 0;
+
+for (let i = 0; i < testAlgorithmCount.length; i++) {
+  algorithmSum += testAlgorithmCount[i];
+};
+
+console.log('Algoritmin arvausten keskiarvo: ' + Math.round(algorithmSum / testAlgorithmCount.length));
+console.log('Algoritmin arvausten maksimi: ' + Math.max(...testAlgorithmCount));
+console.log('Algoritmin teoreettinen maksimi on 9 (jos random arvo on 10)');
+console.log('Algoritmin teoreettinen minimi on 1 (jos random arvo on 51)');
+
+
+
+guessHistory = [];
+lastGuessTooHigh = null;
+guessMin = minValue;
+guessMax = maxValue;
+let randomNumber = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
+console.log('arvattava luku: ' + randomNumber);
 
 
 const guesses = document.querySelector('.guesses');
@@ -22,7 +93,7 @@ const guessField = document.querySelector('.guessField');
 
 let guessCount = 1;
 let startTime = Date.now();
-const maxGuessCount = 8;
+const maxGuessCount = 10;
 let resetButton;
 guessField.focus();
 
@@ -39,7 +110,11 @@ const countGuesses = () => {
 
 
 const checkGuess = () => {
-  const userGuess = Number(guessField.value);
+  // const guessedValue = guessField.value;
+  const guessedValue = algorithm();
+
+  const userGuess = Number(guessedValue);
+  guessHistory.push(userGuess);
   if (guessCount === 1) {
     guesses.textContent = 'Previous guesses: ';
   }
@@ -67,8 +142,10 @@ const checkGuess = () => {
       lowOrHi.textContent = 'Number must be between ' + minValue + ' and ' + maxValue + "!";
     } else if (userGuess < randomNumber) {
       lowOrHi.textContent = 'Last guess was too low!';
+      lastGuessTooHigh = false;
     } else if (userGuess > randomNumber) {
       lowOrHi.textContent = 'Last guess was too high!';
+      lastGuessTooHigh = true;
     }
   }
 
@@ -79,6 +156,8 @@ const checkGuess = () => {
 
 
 guessSubmit.addEventListener('click', checkGuess);
+
+
 
 const setGameOver = () => {
   guessField.disabled = true;
@@ -111,5 +190,10 @@ const resetGame = () => {
   lastResult.style.backgroundColor = 'white';
 
   randomNumber = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
+
+  guessHistory = [];
+  lastGuessTooHigh = null;
+  guessMin = minValue;
+  guessMax = maxValue;
 };
 
