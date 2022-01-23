@@ -1,4 +1,4 @@
-/**TASK 2 */
+/**TASK 1 */
 
 /**
  * Algoritmi
@@ -89,15 +89,13 @@ const timer = document.querySelector('#clock');
 const numberOfGuesses = document.querySelector('#numberOfGuesses');
 
 const guessSubmit = document.querySelector('.guessSubmit');
-const guessField = document.querySelector('.guessField');
 
 let guessCount = 1;
 let startTime = Date.now();
 const maxGuessCount = 10;
 let resetButton;
-guessField.focus();
 
-desc.textContent = 'Choose a number between ' + minValue + ' and ' + maxValue + '. You have ' + maxGuessCount + ' guesses!';
+desc.textContent = 'Computer chooses a number between ' + minValue + ' and ' + maxValue + '.';
 
 const endTimer = () => {
   const endTime = Date.now() - startTime;
@@ -110,7 +108,6 @@ const countGuesses = () => {
 
 
 const checkGuess = () => {
-  // const guessedValue = guessField.value;
   const guessedValue = algorithm();
 
   const userGuess = Number(guessedValue);
@@ -150,8 +147,6 @@ const checkGuess = () => {
   }
 
   guessCount++;
-  guessField.value = '';
-  guessField.focus();
 };
 
 
@@ -160,7 +155,6 @@ guessSubmit.addEventListener('click', checkGuess);
 
 
 const setGameOver = () => {
-  guessField.disabled = true;
   guessSubmit.disabled = true;
   resetButton = document.createElement('button');
   resetButton.textContent = 'Start new game';
@@ -182,10 +176,7 @@ const resetGame = () => {
 
   resetButton.parentNode.removeChild(resetButton);
 
-  guessField.disabled = false;
   guessSubmit.disabled = false;
-  guessField.value = '';
-  guessField.focus();
 
   lastResult.style.backgroundColor = 'white';
 
