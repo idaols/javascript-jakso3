@@ -255,7 +255,7 @@ p {
 .buttons {
   display: flex;
   flex-flow: column;
-  width: 10%;
+  width: 20%;
 }
 
 .cardBut {
