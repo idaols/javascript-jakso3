@@ -1,3 +1,19 @@
 body {
   margin: 10%;
 }
+
+#hoverMe {
+  margin: auto;
+  width: 300px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(212, 255, 255);
+}
+
+p {
+  text-align: center;
+}
