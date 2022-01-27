@@ -39,7 +39,6 @@ showMenu(fazerCoursesFi, fazerMenuList);
 
 /**
  * Function for changing the language of the menu
- *
  */
 const changeLanguage = () => {
   if (langFi) {
@@ -74,7 +73,6 @@ const sortMenu = () => {
 
 /**
  * Function that selects random course
- * @param {array} courses list of courses
  */
 const selectRandom = () => {
   let pickRandom;
@@ -91,30 +89,6 @@ const selectRandom = () => {
   }
 
 };
-
-// /**
-//  * Select random course from Sodexo menu
-//  */
-// const selectSodexoRandom = () => {
-//   if (sodexoLangFi) {
-//     selectRandom(sodexoCoursesFi);
-//   } else {
-//     selectRandom(sodexoCoursesEn);
-//   }
-
-// };
-
-// /**
-//  * Select random course from Fazer menu
-//  */
-// const selectFazerRandom = () => {
-//   if (fazerLangFi) {
-//     selectRandom(fazerCoursesFi);
-//   } else {
-//     selectRandom(fazerCoursesEn);
-//   }
-
-// };
 
 
 // Event listeners
