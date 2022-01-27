@@ -11,16 +11,13 @@ const fazerCoursesEn = FazerData.coursesEn;
 // Selecting elements
 const sodexoMenuList = document.querySelector("#menuListSodexo");
 const fazerMenuList = document.querySelector("#menuListFazer");
-const sodexoLanguageBtn = document.querySelector("#sodexoLanguageBtn");
-const sodexoSortBtn = document.querySelector("#sodexoSortBtn");
-const sodexoRandomBtn = document.querySelector("#sodexoRandomBtn");
-const fazerLanguageBtn = document.querySelector("#fazerLanguageBtn");
-const fazerSortBtn = document.querySelector("#fazerSortBtn");
-const fazerRandomBtn = document.querySelector("#fazerRandomBtn");
+const languageBtn = document.querySelector("#languageBtn");
+const sortBtn = document.querySelector("#sortBtn");
+const randomBtn = document.querySelector("#randomBtn");
 
 //Defining language
-let sodexoLangFi = true;
-let fazerLangFi = true;
+let langFi = true;
+
 
 /**
  * Function showing the menu
@@ -43,116 +40,87 @@ showMenu(fazerCoursesFi, fazerMenuList);
 /**
  * Function for changing the language of the menu
  *
- * @param {array} coursesFi shows course's finnish names
- * @param {array} coursesEn shows course's english names
- * @param {array} menuList list of courses
- * @param {boolean} langFi true/false
  */
-const changeLanguage = (coursesFi, coursesEn, menuList, langFi) => {
+const changeLanguage = () => {
   if (langFi) {
-    showMenu(coursesEn, menuList);
+    showMenu(sodexoCoursesEn, sodexoMenuList);
+    showMenu(fazerCoursesEn, fazerMenuList);
+    langFi = false;
   } else {
-    showMenu(coursesFi, menuList);
+    showMenu(sodexoCoursesFi, sodexoMenuList);
+    showMenu(fazerCoursesFi, fazerMenuList);
+    langFi = true;
   }
 };
 
-/**
- * Change language for Sodexo menu
- */
-const changeSodexoLanguage = () => {
-  changeLanguage(sodexoCoursesFi, sodexoCoursesEn, sodexoMenuList, sodexoLangFi);
-  if (sodexoLangFi) {
-    sodexoLangFi = false;
-  } else {
-    sodexoLangFi = true;
-  }
-};
-
-/**
- * Change language for Fazer menu
- */
-const changeFazerLanguage = () => {
-  changeLanguage(fazerCoursesFi, fazerCoursesEn, fazerMenuList, fazerLangFi);
-  if (fazerLangFi) {
-    fazerLangFi = false;
-  } else {
-    fazerLangFi = true;
-  }
-};
 
 /**
  * Function that sorts the menu asc/desc
- *
- * @param {array} coursesFi shows course's finnish names
- * @param {array} coursesEn shows course's english names
- * @param {array} menuList list of courses
- * @param {boolean} langFi true/false
  */
-const sortMenu = (coursesFi, coursesEn, menuList, langFi) => {
+const sortMenu = () => {
   if (langFi) {
-    coursesFi.reverse();
-    showMenu(coursesFi, menuList);
+    sodexoCoursesFi.reverse();
+    fazerCoursesFi.reverse();
+    showMenu(sodexoCoursesFi, sodexoMenuList);
+    showMenu(fazerCoursesFi, fazerMenuList);
   } else {
-    coursesEn.reverse();
-    showMenu(coursesEn, menuList);
+    sodexoCoursesEn.reverse();
+    fazerCoursesEn.reverse();
+    showMenu(sodexoCoursesEn, sodexoMenuList);
+    showMenu(fazerCoursesEn, fazerMenuList);
   };
 };
 
-/**
- * Sorts Sodexo menu
- */
-const sortSodexoMenu = () => {
-  sortMenu(sodexoCoursesFi, sodexoCoursesEn, sodexoMenuList, sodexoLangFi);
-};
-
-/**
- * Sorts Fazer menu
- */
-const sortFazerMenu = () => {
-  sortMenu(fazerCoursesFi, fazerCoursesEn, fazerMenuList, fazerLangFi);
-};
 
 /**
  * Function that selects random course
  * @param {array} courses list of courses
  */
-const selectRandom = (courses) => {
-  const pickRandom = Math.floor(Math.random() * courses.length);
-  alert(courses[pickRandom]);
-};
-
-/**
- * Select random course from Sodexo menu
- */
-const selectSodexoRandom = () => {
-  if (sodexoLangFi) {
-    selectRandom(sodexoCoursesFi);
+const selectRandom = () => {
+  let pickRandom;
+  if (sodexoCoursesFi.length > fazerCoursesFi.length) {
+    pickRandom = Math.floor(Math.random() * fazerCoursesFi.length);
   } else {
-    selectRandom(sodexoCoursesEn);
+    pickRandom = Math.floor(Math.random() * sodexoCoursesFi.length);
+  }
+
+  if (langFi) {
+    alert('Sodexo: ' + sodexoCoursesFi[pickRandom] + '\n' + 'Fazer:' + fazerCoursesFi[pickRandom]);
+  } else {
+    alert('Sodexo: ' + sodexoCoursesEn[pickRandom] + '\n' + 'Fazer:' + fazerCoursesEn[pickRandom]);
   }
 
 };
 
-/**
- * Select random course from Fazer menu
- */
-const selectFazerRandom = () => {
-  if (fazerLangFi) {
-    selectRandom(fazerCoursesFi);
-  } else {
-    selectRandom(fazerCoursesEn);
-  }
+// /**
+//  * Select random course from Sodexo menu
+//  */
+// const selectSodexoRandom = () => {
+//   if (sodexoLangFi) {
+//     selectRandom(sodexoCoursesFi);
+//   } else {
+//     selectRandom(sodexoCoursesEn);
+//   }
 
-};
+// };
+
+// /**
+//  * Select random course from Fazer menu
+//  */
+// const selectFazerRandom = () => {
+//   if (fazerLangFi) {
+//     selectRandom(fazerCoursesFi);
+//   } else {
+//     selectRandom(fazerCoursesEn);
+//   }
+
+// };
 
 
 // Event listeners
-sodexoLanguageBtn.addEventListener('click', changeSodexoLanguage);
-sodexoSortBtn.addEventListener('click', sortSodexoMenu);
-sodexoRandomBtn.addEventListener('click', selectSodexoRandom);
-fazerLanguageBtn.addEventListener('click', changeFazerLanguage);
-fazerSortBtn.addEventListener('click', sortFazerMenu);
-fazerRandomBtn.addEventListener('click', selectFazerRandom);
+languageBtn.addEventListener('click', changeLanguage);
+sortBtn.addEventListener('click', sortMenu);
+randomBtn.addEventListener('click', selectRandom);
 
 
 

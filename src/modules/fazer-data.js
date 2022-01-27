@@ -13,11 +13,13 @@ const coursesEn = [];
 const parseFazerMenu = (menu, course) => {
   const setMenus = menu.SetMenus;
   for (const setMenu of setMenus) {
+    let full_course = [];
     const meals = setMenu.Meals;
     for (const meal of meals) {
-      const name = meal.Name;
-      course.push(name);
+      const name = ' ' + meal.Name;
+      full_course.push(name);
     }
+    course.push(full_course);
   }
 
 };
