@@ -2,6 +2,16 @@
 import SodexoData from './modules/sodexo-data';
 import FazerData from './modules/fazer-data';
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').then(registration => {
+      console.log('SW registered: ', registration);
+    }).catch(registrationError => {
+      console.log('SW registration failed: ', registrationError);
+    });
+  });
+};
+
 // Data
 const sodexoCoursesFi = SodexoData.coursesFi;
 const sodexoCoursesEn = SodexoData.coursesEn;
@@ -39,7 +49,6 @@ showMenu(fazerCoursesFi, fazerMenuList);
 
 /**
  * Function for changing the language of the menu
- *
  */
 const changeLanguage = () => {
   if (langFi) {
@@ -74,7 +83,6 @@ const sortMenu = () => {
 
 /**
  * Function that selects random course
- * @param {array} courses list of courses
  */
 const selectRandom = () => {
   let pickRandom;
@@ -91,30 +99,6 @@ const selectRandom = () => {
   }
 
 };
-
-// /**
-//  * Select random course from Sodexo menu
-//  */
-// const selectSodexoRandom = () => {
-//   if (sodexoLangFi) {
-//     selectRandom(sodexoCoursesFi);
-//   } else {
-//     selectRandom(sodexoCoursesEn);
-//   }
-
-// };
-
-// /**
-//  * Select random course from Fazer menu
-//  */
-// const selectFazerRandom = () => {
-//   if (fazerLangFi) {
-//     selectRandom(fazerCoursesFi);
-//   } else {
-//     selectRandom(fazerCoursesEn);
-//   }
-
-// };
 
 
 // Event listeners
