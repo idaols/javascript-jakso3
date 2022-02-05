@@ -1,16 +1,14 @@
-import fazerLunchMenuFi from '../assets/fazer-week-example.json';
-import fazerLunchMenuEn from '../assets/fazer-week-example-en.json';
+const fazerLunchMenuFiUrl = 'https://www.foodandco.fi/api/restaurant/menu/week?language=fi&restaurantPageId=270540&weekDate=2022-02-01';
+const fazerLunchMenuEnUrl = 'https://www.foodandco.fi/api/restaurant/menu/week?language=en&restaurantPageId=270540&weekDate=2022-02-01';
 
-
-const coursesFi = [];
-const coursesEn = [];
 
 /**
  * Extract vegan diets from Fazer menu JSON object
  *
  * @param {string} menu - JSON Menu to be parsed
  */
-const parseFazerMenu = (menu, course) => {
+const parseFazerMenu = (menu) => {
+  const course = [];
   const setMenus = menu.SetMenus;
   for (const setMenu of setMenus) {
     const meals = setMenu.Meals;
@@ -19,11 +17,9 @@ const parseFazerMenu = (menu, course) => {
       course.push(name);
     }
   }
-
+  return course;
 };
 
-parseFazerMenu(fazerLunchMenuFi.LunchMenus[0], coursesFi);
-parseFazerMenu(fazerLunchMenuEn.LunchMenus[0], coursesEn);
 
-const FazerData = { coursesEn, coursesFi };
+const FazerData = { parseFazerMenu, fazerLunchMenuFiUrl, fazerLunchMenuEnUrl };
 export default FazerData;

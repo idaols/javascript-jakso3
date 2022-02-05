@@ -1,26 +1,87 @@
 // Importing modules
 import SodexoData from './modules/sodexo-data';
 import FazerData from './modules/fazer-data';
+import { fetchData } from './modules/network';
 
-// Data
-const sodexoCoursesFi = SodexoData.coursesFi;
-const sodexoCoursesEn = SodexoData.coursesEn;
-const fazerCoursesFi = FazerData.coursesFi;
-const fazerCoursesEn = FazerData.coursesEn;
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker.register('./service-worker.js').then(registration => {
+//       console.log('SW registered: ', registration);
+//     }).catch(registrationError => {
+//       console.log('SW registration failed: ', registrationError);
+//     });
+//   });
+// };
+
 
 // Selecting elements
 const sodexoMenuList = document.querySelector("#menuListSodexo");
 const fazerMenuList = document.querySelector("#menuListFazer");
-const sodexoLanguageBtn = document.querySelector("#sodexoLanguageBtn");
-const sodexoSortBtn = document.querySelector("#sodexoSortBtn");
-const sodexoRandomBtn = document.querySelector("#sodexoRandomBtn");
-const fazerLanguageBtn = document.querySelector("#fazerLanguageBtn");
-const fazerSortBtn = document.querySelector("#fazerSortBtn");
-const fazerRandomBtn = document.querySelector("#fazerRandomBtn");
+const languageBtn = document.querySelector("#languageBtn");
+const sortBtn = document.querySelector("#sortBtn");
+const randomBtn = document.querySelector("#randomBtn");
 
-//Defining language
-let sodexoLangFi = true;
-let fazerLangFi = true;
+//Defining language and sorting
+let langFi = true;
+let reversed = false;
+
+
+//Renders Sodexo data
+const renderSodexo = (fi, sort, random = false) => {
+
+  fetchData(SodexoData.sodexoDataUrl).then(data => {
+    let courses = SodexoData.parseSodexoMenu(data.courses);
+    const coursesFi = courses[0];
+    const coursesEn = courses[1];
+    if (sort) {
+      coursesFi.reverse();
+      coursesEn.reverse();
+    }
+    if (fi === true) {
+      if (random) {
+        selectRandom(coursesFi);
+      }
+      showMenu(coursesFi, sodexoMenuList);
+    } else {
+      if (random) {
+        selectRandom(coursesEn);
+      }
+      showMenu(coursesEn, sodexoMenuList);
+    }
+  });
+
+};
+
+renderSodexo(langFi, reversed);
+
+
+//Renders Fazer Data
+const renderFazer = (fi, sort) => {
+  if (fi === true) {
+    fetchData(FazerData.fazerLunchMenuFiUrl, true).then(data => {
+      const menuData = JSON.parse(data.contents);
+      console.log(menuData);
+      let course = FazerData.parseFazerMenu(menuData.LunchMenus[0]);
+      if (sort) {
+        course.reverse();
+      }
+      showMenu(course, fazerMenuList);
+    });
+  } else {
+    fetchData(FazerData.fazerLunchMenuEnUrl, true).then(data => {
+      const menuData = JSON.parse(data.contents);
+      console.log(menuData);
+      let course = FazerData.parseFazerMenu(menuData.LunchMenus[0]);
+      if (sort) {
+        course.reverse();
+      }
+      showMenu(course, fazerMenuList);
+    });
+  }
+};
+
+renderFazer(langFi, reversed);
+
 
 /**
  * Function showing the menu
@@ -37,124 +98,50 @@ const showMenu = (courses, menuList) => {
   };
 };
 
-showMenu(sodexoCoursesFi, sodexoMenuList);
-showMenu(fazerCoursesFi, fazerMenuList);
-
 /**
  * Function for changing the language of the menu
- *
- * @param {array} coursesFi shows course's finnish names
- * @param {array} coursesEn shows course's english names
- * @param {array} menuList list of courses
- * @param {boolean} langFi true/false
  */
-const changeLanguage = (coursesFi, coursesEn, menuList, langFi) => {
+const changeLanguage = () => {
   if (langFi) {
-    showMenu(coursesEn, menuList);
+    langFi = false;
   } else {
-    showMenu(coursesFi, menuList);
+    langFi = true;
   }
+  renderSodexo(langFi, reversed);
+  renderFazer(langFi, reversed);
 };
 
-/**
- * Change language for Sodexo menu
- */
-const changeSodexoLanguage = () => {
-  changeLanguage(sodexoCoursesFi, sodexoCoursesEn, sodexoMenuList, sodexoLangFi);
-  if (sodexoLangFi) {
-    sodexoLangFi = false;
-  } else {
-    sodexoLangFi = true;
-  }
-};
-
-/**
- * Change language for Fazer menu
- */
-const changeFazerLanguage = () => {
-  changeLanguage(fazerCoursesFi, fazerCoursesEn, fazerMenuList, fazerLangFi);
-  if (fazerLangFi) {
-    fazerLangFi = false;
-  } else {
-    fazerLangFi = true;
-  }
-};
 
 /**
  * Function that sorts the menu asc/desc
- *
- * @param {array} coursesFi shows course's finnish names
- * @param {array} coursesEn shows course's english names
- * @param {array} menuList list of courses
- * @param {boolean} langFi true/false
  */
-const sortMenu = (coursesFi, coursesEn, menuList, langFi) => {
-  if (langFi) {
-    coursesFi.reverse();
-    showMenu(coursesFi, menuList);
+const sortMenu = () => {
+  if (reversed) {
+    reversed = false;
   } else {
-    coursesEn.reverse();
-    showMenu(coursesEn, menuList);
-  };
+    reversed = true;
+  }
+  renderSodexo(langFi, reversed);
+  renderFazer(langFi, reversed);
 };
 
-/**
- * Sorts Sodexo menu
- */
-const sortSodexoMenu = () => {
-  sortMenu(sodexoCoursesFi, sodexoCoursesEn, sodexoMenuList, sodexoLangFi);
-};
-
-/**
- * Sorts Fazer menu
- */
-const sortFazerMenu = () => {
-  sortMenu(fazerCoursesFi, fazerCoursesEn, fazerMenuList, fazerLangFi);
-};
 
 /**
  * Function that selects random course
- * @param {array} courses list of courses
  */
-const selectRandom = (courses) => {
-  const pickRandom = Math.floor(Math.random() * courses.length);
-  alert(courses[pickRandom]);
-};
-
-/**
- * Select random course from Sodexo menu
- */
-const selectSodexoRandom = () => {
-  if (sodexoLangFi) {
-    selectRandom(sodexoCoursesFi);
-  } else {
-    selectRandom(sodexoCoursesEn);
-  }
+const selectRandom = (course) => {
+  let pickRandom;
+  pickRandom = Math.floor(Math.random() * course.length);
+  alert('Random course: ' + course[pickRandom]);
 
 };
 
-/**
- * Select random course from Fazer menu
- */
-const selectFazerRandom = () => {
-  if (fazerLangFi) {
-    selectRandom(fazerCoursesFi);
-  } else {
-    selectRandom(fazerCoursesEn);
-  }
 
-};
 
 
 // Event listeners
-sodexoLanguageBtn.addEventListener('click', changeSodexoLanguage);
-sodexoSortBtn.addEventListener('click', sortSodexoMenu);
-sodexoRandomBtn.addEventListener('click', selectSodexoRandom);
-fazerLanguageBtn.addEventListener('click', changeFazerLanguage);
-fazerSortBtn.addEventListener('click', sortFazerMenu);
-fazerRandomBtn.addEventListener('click', selectFazerRandom);
-
-
-
-
-
+languageBtn.addEventListener('click', changeLanguage);
+sortBtn.addEventListener('click', sortMenu);
+randomBtn.addEventListener('click', () => {
+  renderSodexo(langFi, reversed, true);
+});

@@ -254,12 +254,13 @@ p {
 
 .buttons {
   display: flex;
-  flex-flow: column;
-  width: 20%;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .cardBut {
-  margin-top: 10px;
+  margin: 10px 5px 0 5px;
   padding: 5px;
   background-color: white;
   border: 1px solid var(--main-color-darkgrey);
@@ -280,19 +281,15 @@ p {
           "menu-area"
           "footer";
   }
-
   .menu-container {
       flex-flow: column;
   }
-
   .menucard {
       width: 80%;
   }
-
   .menucard:nth-child(n+2) {
       margin-top: 30px;
   }
-
   .intro {
       padding: 0 20px;
   }
@@ -306,10 +303,8 @@ Punainen: #940E3F
 Tummanharmaa: #343A40
 Vaaleanharmaa: #9BADBF
 Musta: #00000
-
 Lisävärit:
 Tumma vihreä: #1D9426
 Vaalea vihreä: #65FF71
 Pinkki: #E0437C
-
 */
