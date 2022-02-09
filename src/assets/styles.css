@@ -27,12 +27,14 @@
   --card-text-color: #ffffff;
   --text: #ebebeb;
   --nav-color: #ffffff;
+  --nav-hover: #4d93e2;
   --banner-color: #1c4370;
   --title-text-color: #ffffff;
   --icon-color: #4d93e2;
   --btn-color: #4d93e2;
   --btn-text: #ffffff;
   --btn-border: #4d93e2;
+  --icon-hover: #ffffff;
  }
 
  .light-theme {
@@ -42,12 +44,14 @@
   --card-text-color: #000000;
   --text: #000000;
   --nav-color: #940E3F;
+  --nav-hover: #3f3f3f;
   --banner-color: #43E04F;
   --title-text-color: #ffffff;
   --icon-color: #940E3F;
   --btn-color: #ffffff;
   --btn-text: #000000;
   --btn-border: #000000;
+  --icon-hover: #43E04F;
  }
 
 :root {
@@ -91,7 +95,7 @@ p {
 }
 
 .nav-container li a:hover {
-  color: var(--main-color-darkgrey);
+  color: var(--nav-hover);
 }
 
 .push {
@@ -280,7 +284,7 @@ p {
 }
 
 .location-icon:hover {
-  fill: var(--highlight-green);
+  fill: var(--icon-hover);
   cursor: pointer;
 }
 
