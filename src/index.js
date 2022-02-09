@@ -2,6 +2,7 @@
 import SodexoData from './modules/sodexo-data';
 import FazerData from './modules/fazer-data';
 import { fetchData } from './modules/network';
+import { Sortable } from '@shopify/draggable';
 
 // if ('serviceWorker' in navigator) {
 //   window.addEventListener('load', () => {
@@ -137,53 +138,20 @@ const selectRandom = (course) => {
 };
 
 
+// Week5 implementation
 
-//Dark mode
-
-// const themeBtn = document.querySelector("#themeBtn");
-// const banner = document.querySelector('.banner-color');
-// const menuCard = document.querySelector('.menucard');
-// const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
-
-// const currentTheme = localStorage.getItem("theme");
-// if (currentTheme === "dark") {
-//   document.body.classList.toggle("dark-theme");
-//   banner.classList.toggle("ban-dark");
-//   menuCard.classList.toggle("card-dark");
-// } else if (currentTheme === "light") {
-//   document.body.classList.toggle("light-theme");
-//   banner.classList.toggle("ban-light");
-//   menuCard.classList.toggle("card-light");
-// }
-
-
-// themeBtn.addEventListener("click", () => {
-//   if (prefersDarkScheme.matches) {
-//     document.body.classList.toggle("light-theme");
-//     banner.classList.toggle("ban-light");
-//     menuCard.classList.toggle("card-light");
-//     var theme = document.body.classList.contains("light-theme")
-//       ? "light"
-//       : "dark";
-//   } else {
-//     document.body.classList.toggle("dark-theme");
-//     banner.classList.toggle("ban-dark");
-//     menuCard.classList.toggle("card-dark");
-//     var theme = document.body.classList.contains("dark-theme")
-//       ? "dark"
-//       : "light";
-//   }
-//   localStorage.setItem("theme", theme);
-// });
-
+// Selecting elements
 const themeBtn = document.querySelector("#themeBtn");
 
-
+// Getting the current theme from localstorage
 const currentTheme = localStorage.getItem("theme");
 if (currentTheme == "light") {
   document.body.classList.add("light-theme");
 }
 
+/**
+ * Function to change the theme between light and dark
+ */
 const changeTheme = () => {
   document.body.classList.toggle("light-theme");
   let theme = "dark";
@@ -192,6 +160,22 @@ const changeTheme = () => {
   }
   localStorage.setItem("theme", theme);
 };
+
+
+/**
+ * Function to dragging the menu-cards and changing their order
+ */
+const changeOrder = () => {
+  const sortable = new Sortable(document.querySelectorAll('.menu-grid-container'), {
+    draggable: 'article',
+    mirror: {
+      constrainDimensions: true,
+    },
+  });
+  localStorage.setItem("order", sortable);
+};
+
+changeOrder();
 
 
 
