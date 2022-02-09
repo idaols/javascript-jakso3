@@ -138,6 +138,62 @@ const selectRandom = (course) => {
 
 
 
+//Dark mode
+
+// const themeBtn = document.querySelector("#themeBtn");
+// const banner = document.querySelector('.banner-color');
+// const menuCard = document.querySelector('.menucard');
+// const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+// const currentTheme = localStorage.getItem("theme");
+// if (currentTheme === "dark") {
+//   document.body.classList.toggle("dark-theme");
+//   banner.classList.toggle("ban-dark");
+//   menuCard.classList.toggle("card-dark");
+// } else if (currentTheme === "light") {
+//   document.body.classList.toggle("light-theme");
+//   banner.classList.toggle("ban-light");
+//   menuCard.classList.toggle("card-light");
+// }
+
+
+// themeBtn.addEventListener("click", () => {
+//   if (prefersDarkScheme.matches) {
+//     document.body.classList.toggle("light-theme");
+//     banner.classList.toggle("ban-light");
+//     menuCard.classList.toggle("card-light");
+//     var theme = document.body.classList.contains("light-theme")
+//       ? "light"
+//       : "dark";
+//   } else {
+//     document.body.classList.toggle("dark-theme");
+//     banner.classList.toggle("ban-dark");
+//     menuCard.classList.toggle("card-dark");
+//     var theme = document.body.classList.contains("dark-theme")
+//       ? "dark"
+//       : "light";
+//   }
+//   localStorage.setItem("theme", theme);
+// });
+
+const themeBtn = document.querySelector("#themeBtn");
+
+
+const currentTheme = localStorage.getItem("theme");
+if (currentTheme == "light") {
+  document.body.classList.add("light-theme");
+}
+
+const changeTheme = () => {
+  document.body.classList.toggle("light-theme");
+  let theme = "dark";
+  if (document.body.classList.contains("light-theme")) {
+    theme = "light";
+  }
+  localStorage.setItem("theme", theme);
+};
+
+
 
 // Event listeners
 languageBtn.addEventListener('click', changeLanguage);
@@ -145,3 +201,6 @@ sortBtn.addEventListener('click', sortMenu);
 randomBtn.addEventListener('click', () => {
   renderSodexo(langFi, reversed, true);
 });
+themeBtn.addEventListener('click', changeTheme);
+
+

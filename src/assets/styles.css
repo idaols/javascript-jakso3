@@ -20,6 +20,36 @@
   font-family: leipateksti;
 }
 
+.dark-theme {
+  --background: #181a18;
+  --card-background: #2c2c2c;
+  --card-border: #dfdfdf;
+  --card-text-color: #ffffff;
+  --text: #ebebeb;
+  --nav-color: #ffffff;
+  --banner-color: #1c4370;
+  --title-text-color: #ffffff;
+  --icon-color: #4d93e2;
+  --btn-color: #4d93e2;
+  --btn-text: #ffffff;
+  --btn-border: #4d93e2;
+ }
+
+ .light-theme {
+  --background: #ffffff;
+  --card-background: #ffffff;
+  --card-border: #0b0e11;
+  --card-text-color: #000000;
+  --text: #000000;
+  --nav-color: #940E3F;
+  --banner-color: #43E04F;
+  --title-text-color: #ffffff;
+  --icon-color: #940E3F;
+  --btn-color: #ffffff;
+  --btn-text: #000000;
+  --btn-border: #000000;
+ }
+
 :root {
   --main-color-red: #940E3F;
   --main-color-green: #43E04F;
@@ -30,8 +60,12 @@
   --highlight-green: #65FF71;
 }
 
+body {
+  background-color: var(--background);
+}
+
 p {
-  color: var(--main-text-color);
+  color: var(--text);
   font-family: leipateksti;
   font-size: 16px;
 }
@@ -51,7 +85,7 @@ p {
 }
 
 .nav-container li a {
-  color: var(--main-color-red);
+  color: var(--nav-color);
   text-decoration: none;
   cursor: pointer;
 }
@@ -67,10 +101,11 @@ p {
 .search-input {
   border: none;
   margin-left: 10px;
+  background-color: var(--background);
 }
 
 #search-icon {
-  fill: var(--main-color-red);
+  fill: var(--icon-color);
 }
 
 .search-input:focus {
@@ -81,7 +116,7 @@ p {
   display: flex;
   padding: 10px;
   width: 13rem;
-  border: 1px solid var(--main-color-red);
+  border: 1px solid var(--nav-color);
   border-radius: 8px;
 }
 
@@ -105,7 +140,7 @@ p {
 }
 
 .banner-color {
-  background-color: var(--main-color-green);
+  background-color: var(--banner-color);
   width: 55%;
   text-align: center;
   display: flex;
@@ -160,19 +195,20 @@ p {
 
 .menucard {
   justify-self: center;
-  border: 1px solid var(--main-color-darkgrey);
+  border: 1px solid var(--card-border);
   padding: 15px;
   border-radius: 10px;
   width: 90%;
   height: auto;
-  background-color: white;
+  background-color: var(--card-background);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--card-text-color);
 }
 
 .add-new {
-  border: 1px dashed var(--main-color-lightgrey);
+  border: 1px dashed var(--card-border);
   height: 10rem;
   display: flex;
   justify-content: flex-start;
@@ -181,12 +217,12 @@ p {
 }
 
 #add-icon {
-  fill: var(--main-color-lightgrey);
+  fill: var(--icon-color);
   cursor: pointer;
 }
 
 .add-new-text {
-  color: var(--main-color-lightgrey);
+  color: var(--text);
   font-size: 14px;
   margin: 4px 0 0 5px;
   cursor: pointer;
@@ -202,12 +238,12 @@ p {
   flex-basis: 70%;
   display: flex;
   flex-flow: column;
+  padding-left: 20px;
 }
 
 
 .card-img-container {
   flex-basis: 30%;
-  border: 1px solid black;
   width: 200px;
   height: 200px;
 }
@@ -239,7 +275,7 @@ p {
 }
 
 .location-icon {
-  fill: var(--main-color-darkgrey);
+  fill: var(--icon-color);
   margin-left: 10px;
 }
 
@@ -260,40 +296,15 @@ p {
 }
 
 .cardBut {
+  font-weight: bold;
   margin: 10px 5px 0 5px;
-  padding: 5px;
-  background-color: white;
-  border: 1px solid var(--main-color-darkgrey);
+  padding: 10px;
+  background-color: var(--btn-color);
+  color: var(--btn-text);
+  border: 1px solid var(--btn-border);
   border-radius: 5px;
   cursor: pointer;
 }
-
-/* .menucard:nth-child(n+3) {
-  margin-top: 30px;
-} */
-
-/* @media screen and (max-width: 710px) {
-  .grid-container {
-      grid-template-columns: 1fr;
-      grid-template-areas:
-          "header"
-          "content-area"
-          "menu-area"
-          "footer";
-  }
-  .menu-container {
-      flex-flow: column;
-  }
-  .menucard {
-      width: 80%;
-  }
-  .menucard:nth-child(n+2) {
-      margin-top: 30px;
-  }
-  .intro {
-      padding: 0 20px;
-  }
-} */
 
 
 /*
@@ -308,3 +319,62 @@ Tumma vihreä: #1D9426
 Vaalea vihreä: #65FF71
 Pinkki: #E0437C
 */
+
+/*Dark mode*/
+
+/* /* body {
+  --text-color: #222;
+  --bkg-color: #fff;
+}
+
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #121212;
+}
+
+
+
+
+@media (prefers-color-scheme: dark) {
+
+  body {
+    --text-color: #eee;
+    --bkg-color: #121212;
+  }
+
+  body.light-theme {
+    --text-color: #222;
+    --bkg-color: #fff;
+  }
+
+  .ban-dark {
+    background-color: #0a360e;
+  }
+
+  .card-dark {
+    background-color: rgb(56, 56, 56);
+    color: white;
+  }
+
+}
+
+body {
+  background: var(--bkg-color);
+}
+
+.ban-light {
+  background-color: #43E04F;
+}
+
+.card-light {
+  background: white;
+  color: var(--main-text-color);
+}
+
+h1,
+p {
+  color: var(--text-color);
+} */
+
+
+
